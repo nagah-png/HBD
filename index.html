@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ميلاد أغلى الناس ✨</title>
+    <style>
+        /* خلفية النجوم المتحركة الثابتة */
+        body { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            overflow: hidden; 
+            color: #fff; 
+        }
+
+        /* إنشاء النجوم المتحركة */
+        .stars {
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            box-shadow: 1744px 122px #FFF , 134px 1321px #FFF , 86px 856px #FFF; 
+            animation: animStar 50s linear infinite;
+        }
+        
+        @keyframes animStar {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-2000px); }
+        }
+
+        .container { 
+            text-align: center; 
+            background: rgba(17, 17, 17, 0.8); 
+            padding: 40px 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 0 20px rgba(255,255,255,0.2); 
+            border: 1px solid #333; 
+            width: 90%; 
+            max-width: 450px; 
+            z-index: 10; 
+            backdrop-filter: blur(5px);
+        }
+
+        h1 { font-size: 1.3rem; margin-bottom: 25px; line-height: 1.8; position: relative; z-index: 12; }
+        .buttons { display: flex; flex-direction: column; align-items: center; gap: 15px; position: relative; z-index: 12; }
+        button { padding: 15px 25px; border-radius: 10px; border: 1px solid #fff; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: 0.3s; width: 85%; background: transparent; color: #fff; }
+        button:hover { background: #fff; color: #000; }
+        #noBtn { position: relative; width: auto; min-width: 100px; }
+        
+        /* حركة البالون الأحمر */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            width: 40px;
+            height: 55px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            z-index: 5;
+            animation: flyUp 10s linear infinite;
+        }
+        .balloon::after { content: ""; position: absolute; bottom: -15px; left: 19px; width: 1px; height: 15px; background: #fff; }
+        
+        @keyframes flyUp {
+            0% { transform: translateY(0); left: 10%; opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-120vh); left: 90%; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- طبقات النجوم والبالون -->
+    <div class="stars" id="starLayer"></div>
+    <div class="balloon"></div>
+
+    <div class="container" id="mainContainer">
+        <div id="content">
+            <h1>هابي بيرثداي حبيبي ❣️<br><br>اول شي بتحبني؟؟ حاول تضغط لا اذا بتقدر😁</h1>
+            <div class="buttons">
+                <button onclick="showFinal()">أي</button>
+                <button id="noBtn" onmouseover="moveButton(event)" ontouchstart="moveButton(event)" onclick="showFinal()">لا</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // توليد عشوائي لظلال النجوم
+        const starLayer = document.getElementById('starLayer');
+        let stars = "";
+        for(let i=0; i<700; i++) {
+            stars += `${Math.random()*2000}px ${Math.random()*2000}px #FFF${i<699 ? ',' : ''}`;
+        }
+        starLayer.style.boxShadow = stars;
+
+        function moveButton(e) {
+            if (e) e.preventDefault();
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function showFinal() {
+            // إخفاء البالون عند المعايدة
+            document.querySelector('.balloon').style.display = 'none';
+            
+            // انطلاق الألعاب النارية الملونة الكثيفة
+            var duration = 10 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 35, spread: 360, ticks: 80, zIndex: 0 };
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                var particleCount = 60 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 }, colors: ['#ff0000', '#ffd700', '#ffffff', '#00ced1', '#ff00ff'] }));
+            }, 250);
+
+            // عرض رسالة المعايدة النهائية فقط
+            document.getElementById('content').innerHTML = `
+                <div style="white-space: pre-line; line-height: 2; font-size: 1.1rem;">
+                    🌟 يا أفخم مواليد مايو 👑
+                    يوم ميلادك هو يوم ميلاد الأيام الحلوة بحياتي..
+                    كبرت سنة وكبر حبك في قلبي سنييييين ❤️
+                    كل عام وأنت الحب والخشير وأبو شريك 😂🫂
+                    كل عام وأنت بخير يا وجه الخير، الدنيا ما تحلى إلا فيك وبعيونك وصوتك..
+                    يا جعل عمرك جنبي كل الأعوام، ويا جعل عيد ميلادك يمر ألف عام ✨
+                    <b>So lucky to have you
+                    And my heart is full of you</b> 🫂❤️
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
